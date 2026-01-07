@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "specsDir": "specs",
+  "features": {
+    "source_code_analysis": {
+      "status": "active",
+      "owner": "PraMamba",
+      "created": "2025-01-07"
+    }
+  }
+}
