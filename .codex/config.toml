@@ -1,30 +1,36 @@
-# Project-local Codex configuration for the migrated slime workflow layer.
-# Skill paths are relative to this .codex/config.toml file.
-
 [agents]
 max_threads = 6
 max_depth = 1
 
+# Skill paths are relative to this file.
 [[skills.config]]
 path = "skills/add-dynamic-filter"
+enabled = true
 
 [[skills.config]]
 path = "skills/add-eval-dataset-config"
+enabled = true
 
 [[skills.config]]
 path = "skills/add-reward-function"
+enabled = true
 
 [[skills.config]]
 path = "skills/add-rollout-function"
+enabled = true
 
 [[skills.config]]
 path = "skills/add-tests-and-ci"
+enabled = true
 
 [[skills.config]]
 path = "skills/create-pr"
+enabled = true
 
 [[skills.config]]
 path = "skills/gen-commit-msg"
+enabled = true
 
 [[skills.config]]
 path = "skills/review-pr"
+enabled = true

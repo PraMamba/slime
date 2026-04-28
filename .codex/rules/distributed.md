@@ -1,11 +1,11 @@
-<!-- Source: `.claude/rules/distributed.md` -->
-
 ---
 paths:
   - slime/backends/megatron_utils/**
   - slime/backends/sglang_utils/**
   - slime/ray/**
 ---
+
+<!-- Source: .claude/rules/distributed.md -->
 
 # Distributed Code Rules
 

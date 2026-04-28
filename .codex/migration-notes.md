@@ -1,43 +1,57 @@
-# Migration Notes
+# Migration notes
 
-This file records compatibility decisions made while porting the prior Claude-oriented workflow layer to Codex-compatible project assets.
+## Decisions captured in this lane
 
-## Active conversions
-
-| Area | Decision |
-| --- | --- |
-| Agents | Converted each Markdown expert into project custom-agent TOML with `name`, `description`, and `developer_instructions`. Claude-only `tools` and `model` fields were not copied as active Codex schema. |
-| Skills | Preserved the five original implementation skills as Codex skill folders with `SKILL.md` files and source headers. |
-| Commands | Reframed command documents as workflow skills: `create-pr`, `gen-commit-msg`, and `review-pr`. |
-| Review data | Moved review change-type/template data to `.codex/workflows/review-pr/` and referenced it from the `review-pr` skill. |
-| Rules | Preserved project rules under `.codex/rules/` and added a Codex-facing rule index. |
-
-## Record-only assets
-
-| Source | Treatment | Reason |
+| Area | Decision | Reason |
 | --- | --- | --- |
-| `.claude/hooks/check-expert-update.sh` | Documented below only; not installed or activated. | The requested first version intentionally excludes active hook behavior. |
-| `.claude/settings.local.json` | Summarized below only; not migrated as active permissions/config. | The file is a Claude-local allowlist and should not silently grant Codex permissions. |
+| Custom agents | Move expert personas into `.codex/agents/*.toml` with Codex-native required fields | Codex discovers custom agents from TOML, not Markdown frontmatter |
+| Skills | Keep each skill as a dedicated folder with `SKILL.md` | Matches project-local skill loading via `skills.config[*].path` |
+| Command workflows | Rewrite PR and commit helpers as skills instead of slash-command-only docs | Keeps workflow invocation discoverable in Codex |
+| Rules | Preserve project rules as Markdown under `.codex/rules/` with a rule index | Keeps domain guidance available without activating hooks |
+| Hooks | Do not activate hook scripts in project config | The requirement is record-only preservation, not live automation |
+| Local settings | Do not create active permission/config overrides | Source-local permissions are environment-specific and out of scope for the migration |
 
-## Preserved hook knowledge, not active hook behavior
+## Record-only omissions
 
-The old reminder script mapped edited paths to expert agents. The mapping is preserved here for humans and future tooling:
+### Hook mapping retained as documentation only
 
-| Changed path pattern | Suggested Codex agent |
+The former hook script mapped code paths to expert reminders. The knowledge is
+preserved here but intentionally not activated as a Codex hook.
+
+| Path pattern family | Expert to consult |
 | --- | --- |
 | `slime/backends/megatron_utils/loss*`, `actor*`, `model*`, `cp_utils*`, `data*`, `checkpoint*`, `initialize*` | `megatron-expert` |
 | `slime/backends/megatron_utils/update_weight/`, `slime/backends/megatron_utils/megatron_to_hf/`, `slime_plugins/mbridge/` | `weight-sync-expert` |
 | `slime/ray/rollout*`, `slime/rollout/`, `slime/backends/sglang_utils/` | `rollout-expert` |
 | `slime/utils/ppo_utils*`, `slime/backends/megatron_utils/loss*`, `slime/rollout/rm_hub/` | `algorithm-expert` |
 
-If automatic reminders are desired later, design a new Codex-native mechanism instead of copying the Claude hook directly.
+### Missing local settings file
 
-## Settings summary
+The consensus plan mentioned a source-local settings file, but the current tree
+for this migration contains no `.claude/settings.local.json`. No active Codex
+settings were created as a substitute. If such a file is reintroduced later,
+handle it as a documentation-only migration note unless a separate plan approves
+active Codex configuration changes.
 
-The old local settings allowed selected shell commands around Git, worktrees, fetching, and GitHub repository inspection. This migration records that permission intent but does not add an active permission override. Codex sessions should continue to follow the current sandbox/approval policy supplied by the runtime.
+## Codex compatibility notes
 
-## Fidelity and usability tradeoffs
+- Project-scoped configuration lives in `.codex/config.toml`.
+- Skill entries are declared via `[[skills.config]]` and point to folders that
+  contain `SKILL.md`.
+- Active assets should not depend on `@.claude/...` imports or legacy
+  slash-command-only instructions.
+- The rules remain documentation assets; this lane does not enable
+  `features.codex_hooks` or inline hook configuration.
 
-- Codex usability takes priority over preserving slash-command-only invocation text.
-- Source paths are retained in converted assets as audit headers, coverage rows, or migration notes.
-- Destructive/remote Git safety gates from the PR workflow were preserved in the `create-pr` skill.
+## Validation expectations after merge
+
+Once the agent and skill lanes are merged, the integrated `.codex` tree should
+satisfy all of the following:
+
+1. every custom agent TOML parses and includes `name`, `description`, and
+   `developer_instructions`;
+2. every `skills.config[*].path` resolves to a folder containing `SKILL.md`;
+3. no active asset contains `@.claude/` imports;
+4. README guidance stays Codex-native and names the intended trigger paths.
+
+See `verification.md` for exact commands.

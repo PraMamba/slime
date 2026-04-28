@@ -1,18 +1,21 @@
-# Codex Rules Index
+# Rule index
 
-This directory preserves slime-specific engineering rules for Codex agents and skills. Treat these as consultable project guidance, not as an automatic hook system.
+Use this index to decide which project rule to consult before editing a given
+area.
 
-## Rule map
-
-| Rule | Path scope | Primary consumers |
+| Rule | Path scope | Typical consumers |
 | --- | --- | --- |
-| `api-config.md` | `slime/utils/arguments.py`, `slime/utils/eval_config.py`, SGLang argument/config modules | `planner`, `algorithm-expert`, `rollout-expert`, add-* skills |
-| `code-style.md` | General Python/project style | all custom agents and all skills |
-| `distributed.md` | Megatron/SGLang backends and Ray orchestration | `megatron-expert`, `weight-sync-expert`, `rollout-expert`, `code-verifier` |
-| `testing.md` | tests, `*_test.py`, `test_*.py` | `code-verifier`, `simple-code-reviewer`, `add-tests-and-ci`, PR workflow skills |
+| `api-config.md` | `slime/utils/arguments.py`, `slime/utils/eval_config.py`, `slime/backends/sglang_utils/sglang_config.py`, `slime/backends/sglang_utils/arguments.py` | `algorithm-expert`, `rollout-expert`, `planner`, `$add-eval-dataset-config` |
+| `code-style.md` | General project code style across the repository | All agents and all skills |
+| `distributed.md` | `slime/backends/megatron_utils/**`, `slime/backends/sglang_utils/**`, `slime/ray/**` | `megatron-expert`, `rollout-expert`, `weight-sync-expert`, `$review-pr` |
+| `testing.md` | `tests/**`, `*_test.py`, `test_*.py` | `code-verifier`, `simple-code-reviewer`, `$add-tests-and-ci`, `$create-pr`, `$review-pr` |
 
-## How to use
+## Practical guidance
 
-- Before editing scoped files, ask the relevant custom agent or skill to consult this index.
-- For reviews, combine `code-style.md` with any domain-specific rule that matches the touched paths.
-- For test work, use `testing.md` to decide whether a change needs GPU E2E scripts, pytest unit/contract tests, or CI-template updates.
+- Consult `code-style.md` for any non-trivial code change.
+- Consult `distributed.md` before touching Ray, NCCL, colocate mode, or weight
+  synchronization flows.
+- Consult `api-config.md` before adding arguments, validation, eval config, or
+  dataclass-backed config surfaces.
+- Consult `testing.md` before changing tests, CI templates, or plugin-facing
+  contracts.

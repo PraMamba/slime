@@ -1,11 +1,11 @@
-<!-- Source: `.claude/rules/testing.md` -->
-
 ---
 paths:
   - tests/**
   - '*_test.py'
   - test_*.py
 ---
+
+<!-- Source: .claude/rules/testing.md -->
 
 # Testing Rules
 

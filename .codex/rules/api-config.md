@@ -1,5 +1,3 @@
-<!-- Source: `.claude/rules/api-config.md` -->
-
 ---
 paths:
   - slime/utils/arguments.py
@@ -7,6 +5,8 @@ paths:
   - slime/backends/sglang_utils/sglang_config.py
   - slime/backends/sglang_utils/arguments.py
 ---
+
+<!-- Source: .claude/rules/api-config.md -->
 
 # API & Config Rules
 

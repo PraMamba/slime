@@ -1,4 +1,4 @@
-<!-- Source: `.claude/rules/code-style.md` -->
+<!-- Source: .claude/rules/code-style.md -->
 
 # Code Style Rules
 
