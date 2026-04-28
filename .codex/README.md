@@ -13,9 +13,6 @@ implementation skills, PR workflows, and scoped rules.
 - `rules/` — scoped project rules for API/config work, code style,
   distributed systems, and testing.
 - `workflows/review-pr/` — supporting review-pr data files.
-- `coverage-matrix.md` — source-to-target migration map.
-- `migration-notes.md` — adaptation decisions and record-only omissions.
-- `verification.md` — checks to run after the lane branches are merged.
 
 ## Using the custom agents
 
@@ -92,5 +89,3 @@ The PR-oriented workflows keep the original safety posture:
 - Active assets should stay Codex-native: no live imports from legacy command
   assets, and no slash-command-only usage guidance.
 
-See `migration-notes.md` for the exact adaptation record and
-`coverage-matrix.md` for the complete asset map.
