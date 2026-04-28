@@ -22,7 +22,7 @@ Use this agent PROACTIVELY when:
 - Before committing changes
 - User asks "can you review this?" or "is this correct?"
 
-**Note**: For comprehensive PR reviews, use `/review-pr` command instead.
+**Note**: For comprehensive PR reviews, use the `review-pr` workflow skill instead.
 
 ## Review Focus Areas
 
