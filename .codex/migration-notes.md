@@ -38,7 +38,7 @@ active Codex configuration changes.
 - Project-scoped configuration lives in `.codex/config.toml`.
 - Skill entries are declared via `[[skills.config]]` and point to folders that
   contain `SKILL.md`.
-- Active assets should not depend on `@.claude/...` imports or legacy
+- Active assets should not depend on legacy `.claude/...` import syntax or legacy
   slash-command-only instructions.
 - The rules remain documentation assets; this lane does not enable
   `features.codex_hooks` or inline hook configuration.
@@ -51,7 +51,7 @@ satisfy all of the following:
 1. every custom agent TOML parses and includes `name`, `description`, and
    `developer_instructions`;
 2. every `skills.config[*].path` resolves to a folder containing `SKILL.md`;
-3. no active asset contains `@.claude/` imports;
+3. no active asset contains legacy `.claude/` import syntax;
 4. README guidance stays Codex-native and names the intended trigger paths.
 
 See `verification.md` for exact commands.

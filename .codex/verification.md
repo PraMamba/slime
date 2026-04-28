@@ -89,7 +89,7 @@ for path in Path('.codex').glob('**/*'):
     if not path.is_file() or path.suffix not in {'.md', '.toml'}:
         continue
     text = path.read_text(errors='ignore')
-    if path.name not in {'coverage-matrix.md', 'migration-notes.md'} and '@.claude/' in text:
+    if path.name not in {'coverage-matrix.md', 'migration-notes.md'} and '@' + '.claude/' in text:
         violations.append(str(path))
 assert not violations, violations
 print('no active legacy imports')
